@@ -8,12 +8,28 @@ namespace Employee.Pages
     {
         public void OnGet()
         {
-            EmployeeEntity John = new EmployeeEntity("John", 50, "HR");
+            Console.WriteLine("Create Get");
+        }
+
+        public void OnPost()
+        {
+            string fName = Request.Form["fName"];
+            string lName = Request.Form["lName"];
+            string name = fName + " " + lName;
+            string empAge = Request.Form["payRate"];
+            int age = Int32.Parse(empAge);
+            string department = Request.Form["department"];
+
+            Console.WriteLine($"Name: {fName} {lName} Aged: {age} Department: {department}");
+            EmployeeEntity newEmp = new EmployeeEntity(name, age, department);
             IDataAccess dataAccess = new SqLiteDataAccess();
-            dataAccess.CreateEntity(John);
-
-
-            
+            EmployeeEntity employee = new EmployeeEntity
+                (
+                Request.Form["fName"],
+                Int32.Parse(Request.Form["payRate"]), 
+                Request.Form["department"]
+                );
+            dataAccess.CreateEntity(employee);
         }
     }
 }

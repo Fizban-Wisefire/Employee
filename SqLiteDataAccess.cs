@@ -7,6 +7,8 @@ namespace Employee
         public SqLiteDataAccess() { }
         public void CreateEntity(EmployeeEntity employee)
         {
+            Console.WriteLine("Posted");
+
             SQLitePCL.Batteries.Init();
 
 
@@ -27,10 +29,13 @@ namespace Employee
                 command.Parameters.AddWithValue("@Department", employee.Department);
 
                 command.ExecuteNonQuery();
+                Console.WriteLine($"Added {employee.Name}");
             }
+            Console.WriteLine("Post Finish");
         }
-        public List<EmployeeEntity> ReadEntity()
+        public List<EmployeeEntity> ReadEntity(string offset)
         {
+            Console.WriteLine(offset);
             List<EmployeeEntity> EmployeeList = new List<EmployeeEntity>();
 
             SQLitePCL.Batteries.Init();
@@ -47,23 +52,23 @@ namespace Employee
                     $@"
                     SELECT *
                     FROM employee
+                    LIMIT 10
+                    OFFSET @offset
                     ";
+
+                readCommand.Parameters.AddWithValue("@offset", offset);
+
                 using (var reader = readCommand.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         EmployeeList.Add(new EmployeeEntity(reader.GetString(1), reader.GetInt32(2), reader.GetString(3)));
                     }
-                    Console.WriteLine(EmployeeList.Count);
-                    for (int i = 0; i < EmployeeList.Count; i++)
-                    {
-                        Console.WriteLine(EmployeeList[i].Name);
-                    }
+                    Console.WriteLine($"Returned {EmployeeList.Count} employees.");
+
+                    return EmployeeList;
                 }
             }
-
-/// FIX THIS SO IT RETURNS THE NEW LIST
-            return new List<EmployeeEntity>();
         }
         public void UpdateEntity(EmployeeEntity Employee, string Query)
         {

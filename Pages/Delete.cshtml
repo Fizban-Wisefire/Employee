@@ -1,6 +1,152 @@
 ﻿@page
 @model Employee.Pages.DeleteModel
 @{
-}
+        <!DOCTYPE html>
+        <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h1>Delete Razor</h1>
+            <style>
+                body {
+                    margin: auto;
+                    width: 60%;
+                }
+
+                #buttonBlock {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    align-content: space-around;
+                    justify-content: space-around;
+                }
+
+                    #buttonBlock button {
+                        width: 100px;
+                        height: 30px;
+                        border-radius: 5px;
+                    }
+
+                form {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                    form div {
+                        margin: 5px;
+                        padding-left: 5px;
+                    }
+
+                    form button {
+                        width: 300px;
+                        height: 60px;
+                        border-radius: 15px;
+                        align-self: center;
+                    }
+            </style>
+
+        </head>
+        <body>
+        
+                <div id="buttonBlock">
+            <button>PREV</button>
+
+            <button>NEXT</button>
+        </div>
+
+        <form method="post">
+            <div>
+                <input type="radio" id="one" value="one" name="empSelect" />
+                <label for="one">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="two" value="two" name="empSelect" />
+                <label for="two">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="three" value="three" name="empSelect" />
+                <label for="three">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="four" value="four" name="empSelect" />
+                <label for="four">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="five" value="five" name="empSelect" />
+                <label for="five">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="six" value="six" name="empSelect" />
+                <label for="six">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="seven" value="seven" name="empSelect" />
+                <label for="seven">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="eight" value="eight" name="empSelect" />
+                <label for="eight">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="nine" value="nine" name="empSelect" />
+                <label for="nine">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="ten" value="ten" name="empSelect" />
+                <label for="ten">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="eleven" value="eleven" name="empSelect" />
+                <label for="eleven">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="tweleve" value="tweleve" name="empSelect" />
+                <label for="tweleve">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="thirteen" value="thirteen" name="empSelect" />
+                <label for="thirteen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="fourteen" value="fourteen" name="empSelect" />
+                <label for="fourteen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="fifthteen" value="fifthteen" name="empSelect" />
+                <label for="fifthteen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="sixteen" value="sixteen" name="empSelect" />
+                <label for="sixteen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="seventeen" value="seventeen" name="empSelect" />
+                <label for="seventeen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="eighteen" value="eighteen" name="empSelect" />
+                <label for="eighteen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="nineteen" value="nineteen" name="empSelect" />
+                <label for="nineteen">ID: 1      Name: John Doe</label>
+            </div>
+            <div>
+                <input type="radio" id="twenty" value="twenty" name="empSelect" />
+                <label for="twenty">ID: 1      Name: John Doe</label>
+            </div>
+        </form>
+    <button onclick="selectDelete()">DELETE</button>
+
+    <script>
+        function selectDelete(){
+            console.log("test")
+            var employee = document.querySelector('input[name="empSelect"]:checked').value;
+            console.log(employee)
+        }
+    </script>
+
+    </body>
+    </html>
+}

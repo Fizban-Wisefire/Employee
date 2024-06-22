@@ -1,6 +1,29 @@
 ﻿@page
 @model Employee.Pages.ReadModel
-@{
-}
 
-<h1>Read Razor</h1>
+
+@{
+        <h1>Read Razor</h1>
+
+        <form method="post">
+            <button type="submit" asp-page-handler="PrevBtn">PREV</button>
+        </form>
+
+        <form method="post">
+            <button type="submit" asp-page-handler="NextBtn">Next</button>
+        </form>
+
+
+    @if(Model.EmployeeList.Count >= 1){
+        @foreach (EmployeeEntity employee in Model.EmployeeList)
+            {
+            <p>Name: @employee.Name</p>
+            <p>Salary: @employee.Age</p>
+            <p>Department: @employee.Department</p>
+            }
+    }
+    else
+    {
+        <p>ERROR: NO RETURNED EMPLOYEES</p>
+    }
+}
