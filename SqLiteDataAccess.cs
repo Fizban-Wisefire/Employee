@@ -5,12 +5,11 @@ namespace Employee
     public class SqLiteDataAccess : IDataAccess
     {
         public SqLiteDataAccess() { }
-        public void CreateEntity(EmployeeEntity employee)
+        public void CreateEntity(EmployeeEntity employee, EmploymentEntity employment)
         {
-            Console.WriteLine("Posted");
-
             SQLitePCL.Batteries.Init();
 
+            Console.WriteLine($"{employee.first_name}, {employee.last_name}, {employee.date_of_birth}, {employee.gender}, {employee.address}, {employee.email}, {employee.phone_number}");
 
             string dbFilePath = "C:\\Users\\Patrick\\source\\repos\\Employee\\Employee.db";
             string connectionString = $"Data Source={dbFilePath}";
@@ -21,15 +20,38 @@ namespace Employee
                 var command = connection.CreateCommand();
                 command.CommandText =
                     $@"
-                    INSERT INTO employee (Name, Age, Department)
-                    VALUES (@Name, @Age, @Department)
+                    INSERT INTO Employees (first_name, last_name, date_of_birth, gender, address, email, phone_number)
+                    VALUES (@first_name, @last_name, @date_of_birth, @gender, @address, @email, @phone_number)
                     ";
-                command.Parameters.AddWithValue("@Name", employee.Name);
-                command.Parameters.AddWithValue("@Age", employee.Age);
-                command.Parameters.AddWithValue("@Department", employee.Department);
+                command.Parameters.AddWithValue("@first_name", employee.first_name);
+                command.Parameters.AddWithValue("@last_name", employee.last_name);
+                command.Parameters.AddWithValue("@date_of_birth", employee.date_of_birth);
+                command.Parameters.AddWithValue("@gender", employee.gender);
+                command.Parameters.AddWithValue("@address", employee.address);
+                command.Parameters.AddWithValue("@email", employee.email);
+                command.Parameters.AddWithValue("@phone_number", employee.phone_number);
 
                 command.ExecuteNonQuery();
-                Console.WriteLine($"Added {employee.Name}");
+                Console.WriteLine($"Added EMPLOYEE DETAILS for {employee.first_name} {employee.last_name}");
+
+                var getLastInsertIdCommand = connection.CreateCommand();
+                getLastInsertIdCommand.CommandText = "SELECT last_insert_rowid();";
+                var employeeId = (long)getLastInsertIdCommand.ExecuteScalar();
+
+                var insertEmploymentDetailsCommand = connection.CreateCommand();
+                insertEmploymentDetailsCommand.CommandText = @"
+                    INSERT INTO Employment_Details (employee_id, department, job_title, supervisor, employment_status, date_of_hire, employment_type)
+                    VALUES (@EmployeeId, @Department, @JobTitle, @Supervisor, @EmploymentStatus, @DateOfHire, @EmploymentType)";
+
+                command.Parameters.AddWithValue("@EmployeeId", employeeId);
+                command.Parameters.AddWithValue("@Department", employment.department);
+                command.Parameters.AddWithValue("@JobTitle", employment.job_title);
+                command.Parameters.AddWithValue("@Supervisor", employment.supervisor);
+                command.Parameters.AddWithValue("@EmploymentStatus", employment.employment_status);
+                command.Parameters.AddWithValue("@DateOfHire", employment.date_of_hire);
+                command.Parameters.AddWithValue("@EmploymentType", employment.employment_type);
+
+                command.ExecuteNonQuery();
             }
             Console.WriteLine("Post Finish");
         }
@@ -51,7 +73,7 @@ namespace Employee
                 readCommand.CommandText =
                     $@"
                     SELECT *
-                    FROM employee
+                    FROM Employees
                     LIMIT 10
                     OFFSET @offset
                     ";
@@ -62,7 +84,7 @@ namespace Employee
                 {
                     while (reader.Read())
                     {
-                        EmployeeList.Add(new EmployeeEntity(reader.GetString(1), reader.GetInt32(2), reader.GetString(3)));
+                        EmployeeList.Add(new EmployeeEntity(reader.GetInt32(0), reader.GetString(2), reader.GetString(3), DateOnly.Parse(reader.GetString(4)), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8)));
                     }
                     Console.WriteLine($"Returned {EmployeeList.Count} employees.");
 

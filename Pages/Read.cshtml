@@ -5,25 +5,64 @@
 @{
         <h1>Read Razor</h1>
 
-        <form method="post">
-            <button type="submit" asp-page-handler="PrevBtn">PREV</button>
-        </form>
+        <div class="prevNextMenu">
+            <form method="post">
+                <button type="submit" asp-page-handler="PrevBtn">PREV</button>
+            </form>
 
-        <form method="post">
-            <button type="submit" asp-page-handler="NextBtn">Next</button>
-        </form>
+            <form method="post">
+                <button type="submit" asp-page-handler="NextBtn">Next</button>
+            </form>
+        </div>
 
 
-    @if(Model.EmployeeList.Count >= 1){
-        @foreach (EmployeeEntity employee in Model.EmployeeList)
+
+    @if(Model.EmployeeList.Count > 0){
+        <div id="readDisplay">
+            @foreach (EmployeeEntity employee in Model.EmployeeList)
             {
-            <p>Name: @employee.Name</p>
-            <p>Salary: @employee.Age</p>
-            <p>Department: @employee.Department</p>
+                <div class="employeeRecord">
+                    <p>Name: @employee.first_name @employee.last_name</p>
+                    <p>Salary: @employee.phone_number</p>
+                </div>
             }
+        </div>
     }
     else
     {
         <p>ERROR: NO RETURNED EMPLOYEES</p>
     }
+
 }
+
+<style>
+    .prevNextMenu{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    #readDisplay{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+
+    }
+
+    .employeeRecord{
+        border: solid black;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .employeeRecord p{
+        padding: 0px;
+        margin: 0px;
+        justify-self: center;
+        align-self: center;
+    }
+</style>

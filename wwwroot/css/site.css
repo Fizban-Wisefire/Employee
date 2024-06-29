@@ -20,3 +20,24 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+}
+
+label {
+    margin-top: 15px
+}
+
+.drop {
+    width: 200px;
+}
+
+#create {
+    display: flex;
+    flex-direction: column;
+}
+
+

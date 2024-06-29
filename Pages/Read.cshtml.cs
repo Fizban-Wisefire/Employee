@@ -16,12 +16,6 @@ namespace Employee.Pages
             IDataAccess dataAccess = new SqLiteDataAccess();
             string passedOffset = offset.ToString();
             EmployeeList = dataAccess.ReadEntity(passedOffset);
-
-            for (int i = 0; i < EmployeeList.Count; i++)
-            {
-                Console.WriteLine($"{i + 1} {EmployeeList[i].Name}");
-            }
-       //     offset = +10;
         }
 
         public void OnPostPrevBtn()
