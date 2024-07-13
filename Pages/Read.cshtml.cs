@@ -15,7 +15,7 @@ namespace Employee.Pages
 
             IDataAccess dataAccess = new SqLiteDataAccess();
             string passedOffset = offset.ToString();
-            EmployeeList = dataAccess.ReadEntity(passedOffset);
+            EmployeeList = dataAccess.ReadEmployeeEntity(passedOffset);
         }
 
         public void OnPostPrevBtn()
@@ -32,7 +32,7 @@ namespace Employee.Pages
 
             IDataAccess dataAccess = new SqLiteDataAccess();
             string passedOffset = offset.ToString();
-            EmployeeList = dataAccess.ReadEntity(passedOffset);
+            EmployeeList = dataAccess.ReadEmployeeEntity(passedOffset);
         }
 
 
@@ -46,7 +46,7 @@ namespace Employee.Pages
 
             IDataAccess dataAccess = new SqLiteDataAccess();
             string passedOffset = offset.ToString();
-            EmployeeList = dataAccess.ReadEntity(passedOffset);
+            EmployeeList = dataAccess.ReadEmployeeEntity(passedOffset);
         }
     }
 }

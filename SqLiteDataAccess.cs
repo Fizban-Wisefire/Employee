@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
+using System.Net;
+using System.Reflection;
 
 namespace Employee
 {
@@ -38,24 +40,30 @@ namespace Employee
                 getLastInsertIdCommand.CommandText = "SELECT last_insert_rowid();";
                 var employeeId = (long)getLastInsertIdCommand.ExecuteScalar();
 
+                Console.WriteLine(employment.employment_type);
+
+                Console.WriteLine($"{employeeId}, {employment.department}, {employment.job_title}, {employment.supervisor}, {employment.employment_status}, {employment.date_of_hire}, {employment.employment_type}");
+
                 var insertEmploymentDetailsCommand = connection.CreateCommand();
                 insertEmploymentDetailsCommand.CommandText = @"
                     INSERT INTO Employment_Details (employee_id, department, job_title, supervisor, employment_status, date_of_hire, employment_type)
                     VALUES (@EmployeeId, @Department, @JobTitle, @Supervisor, @EmploymentStatus, @DateOfHire, @EmploymentType)";
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@EmployeeId", employeeId);
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@Department", employment.department);
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@JobTitle", employment.job_title);
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@Supervisor", employment.supervisor);
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@EmploymentStatus", employment.employment_status);
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@DateOfHire", employment.date_of_hire);
+                insertEmploymentDetailsCommand.Parameters.AddWithValue("@EmploymentType", employment.employment_type);
 
-                command.Parameters.AddWithValue("@EmployeeId", employeeId);
-                command.Parameters.AddWithValue("@Department", employment.department);
-                command.Parameters.AddWithValue("@JobTitle", employment.job_title);
-                command.Parameters.AddWithValue("@Supervisor", employment.supervisor);
-                command.Parameters.AddWithValue("@EmploymentStatus", employment.employment_status);
-                command.Parameters.AddWithValue("@DateOfHire", employment.date_of_hire);
-                command.Parameters.AddWithValue("@EmploymentType", employment.employment_type);
 
-                command.ExecuteNonQuery();
+                insertEmploymentDetailsCommand.ExecuteNonQuery();
+                Console.WriteLine($"Added EMPLOYMENT DETAILS for {employee.first_name} {employee.last_name}");
+
             }
             Console.WriteLine("Post Finish");
         }
-        public List<EmployeeEntity> ReadEntity(string offset)
+        public List<EmployeeEntity> ReadEmployeeEntity(string offset)
         {
             Console.WriteLine(offset);
             List<EmployeeEntity> EmployeeList = new List<EmployeeEntity>();
@@ -84,7 +92,8 @@ namespace Employee
                 {
                     while (reader.Read())
                     {
-                        EmployeeList.Add(new EmployeeEntity(reader.GetInt32(0), reader.GetString(2), reader.GetString(3), DateOnly.Parse(reader.GetString(4)), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8)));
+                        EmployeeList.Add(new EmployeeEntity(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), DateOnly.Parse(reader.GetString(3)), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7)));
+
                     }
                     Console.WriteLine($"Returned {EmployeeList.Count} employees.");
 
@@ -92,6 +101,13 @@ namespace Employee
                 }
             }
         }
+
+        public List<EmploymentEntity> ReadEmploymentEntity(string offset)
+        {
+            List<EmploymentEntity> EmploymentList = new List<EmploymentEntity>();
+            return EmploymentList;
+        }
+
         public void UpdateEntity(EmployeeEntity Employee, string Query)
         {
             Console.WriteLine($"Update {Query}");

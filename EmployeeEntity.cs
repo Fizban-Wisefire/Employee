@@ -16,14 +16,18 @@
 
         public EmployeeEntity(int employee_id, string first_name, string last_name, DateOnly date_of_birth, string gender, string address, string email, string phone_number) 
         {
-            employee_id = employee_id;
-            first_name = first_name;
-            last_name = last_name;
-            date_of_birth = date_of_birth;
-            gender = gender;
-            address = address;
-            email = email;
-            phone_number = phone_number;
+
+            Console.WriteLine($"{first_name} {last_name} {date_of_birth} {gender} {address} {email} {phone_number}");
+
+            this.employee_id = employee_id;
+            this.first_name = first_name;
+            this.last_name = last_name;
+            this.date_of_birth = date_of_birth;
+            this.gender = gender;
+            this.address = address;
+            this.email = email;
+            this.phone_number = phone_number;
+
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Employee.Pages
         public void OnGet()
         {
             IDataAccess dataAccess = new SqLiteDataAccess();
-            Console.WriteLine("Update");
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Employee.Pages
             string department = Request.Form["department"];
             string job_title = Request.Form["job_title"];
             string supervisor = Request.Form["supervisor"];
-            string employment_type = Request.Form["employment_status"];
+            string employment_type = Request.Form["employment_type"];
             DateOnly date_of_hire = DateOnly.Parse(Request.Form["date_of_hire"]);
             string employment_status = "active";
 

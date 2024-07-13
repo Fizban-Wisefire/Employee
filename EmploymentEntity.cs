@@ -15,14 +15,17 @@
 
         public EmploymentEntity(int detail_id, int employee_id, string department, string job_title, string supervisor, string employment_status, DateOnly date_of_hire, string employment_type)
         {
-            detail_id = detail_id;
-            employee_id = employee_id;
-            department = department;
-            job_title = job_title;
-            supervisor = supervisor;
-            employment_status = employment_status;
-            date_of_hire = date_of_hire;
-            employment_type = employment_type;
+
+            Console.WriteLine($"{department} {job_title} {supervisor} {employment_status} {date_of_hire} {employment_type}");
+
+            this.detail_id = detail_id;
+            this.employee_id = employee_id;
+            this.department = department;
+            this.job_title = job_title;
+            this.supervisor = supervisor;
+            this.employment_status = employment_status;
+            this.date_of_hire = date_of_hire;
+            this.employment_type = employment_type;
 
         }
 
